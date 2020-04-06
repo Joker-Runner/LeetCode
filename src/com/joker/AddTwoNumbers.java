@@ -25,10 +25,13 @@ public class AddTwoNumbers {
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        ListNode head = null, cursorNode = null;
+        ListNode head = new ListNode(0), cursorNode = head;
         int carry = 0;
 
-        while (l1 != null || l2 != null || carry != 0) {
+        /**
+         * 把这里的 ||carry != 0去掉一下快了好多好多（又试了下也没有太大去区别，待明确）
+         */
+        while (l1 != null || l2 != null) {
             int l1Val = 0;
             if (l1 != null) {
                 l1Val = l1.val;
@@ -40,16 +43,43 @@ public class AddTwoNumbers {
                 l2 = l2.next;
             }
             int sum = l1Val + l2Val + carry;
-            ListNode tempNode = new ListNode(sum % 10);
-            if (head == null) {
-                head = tempNode;
-                cursorNode = tempNode;
-            } else {
-                cursorNode.next = tempNode;
-                cursorNode = cursorNode.next;
-            }
+            cursorNode.next = new ListNode(sum % 10);
+            cursorNode = cursorNode.next;
             carry = sum / 10;
         }
+        if (carry > 0) {
+            cursorNode.next = new ListNode(carry);
+        }
+        return head.next;
+
+        /**
+         * 上面有参考优秀答案解决的一个问题，常用！！！
+         */
+//        ListNode head = null, cursorNode = null;
+//        int carry = 0;
+//
+//        while (l1 != null || l2 != null || carry != 0) {
+//            int l1Val = 0;
+//            if (l1 != null) {
+//                l1Val = l1.val;
+//                l1 = l1.next;
+//            }
+//            int l2Val = 0;
+//            if (l2 != null) {
+//                l2Val = l2.val;
+//                l2 = l2.next;
+//            }
+//            int sum = l1Val + l2Val + carry;
+//            ListNode tempNode = new ListNode(sum % 10);
+//            if (head == null) {
+//                head = tempNode;
+//                cursorNode = tempNode;
+//            } else {
+//                cursorNode.next = tempNode;
+//                cursorNode = cursorNode.next;
+//            }
+//            carry = sum / 10;
+//        }
 
 
         /**
@@ -86,7 +116,7 @@ public class AddTwoNumbers {
 //            head = tempNode;
 //            sumValue /= 10;
 //        }
-        return head;
+//        return head;
     }
 
     /**
