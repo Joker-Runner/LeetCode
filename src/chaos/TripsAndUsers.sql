@@ -1,4 +1,5 @@
 
+# 262. Trips and Users
 
 select Request_at as Day, round(sum(case Status when 'completed' then 0 else 1 end)/count(*), 2) as 'Cancellation Rate'
 from trips
